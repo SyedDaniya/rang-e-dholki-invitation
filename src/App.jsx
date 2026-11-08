@@ -37,7 +37,7 @@ function App() {
   const [countdown, setCountdown] = useState(getCountdown)
   const [rsvp, setRsvp] = useState('accept')
   const [whatsappUrl, setWhatsappUrl] = useState('')
-  const [isMusicOn, setIsMusicOn] = useState(true)
+  const [isMusicOn, setIsMusicOn] = useState(false)
   const [notice, setNotice] = useState('')
   const [scrollY, setScrollY] = useState(0)
 
@@ -95,7 +95,7 @@ function App() {
 
   const openInvitation = () => {
     if (isOpen || isOpening || isTapping) return
-    setIsMusicOn(true)
+    setIsMusicOn(false)
     setIsTapping(true)
     window.setTimeout(() => setIsOpening(true), 430)
     window.setTimeout(() => {
@@ -113,7 +113,7 @@ function App() {
         loop
         muted
         playsInline
-        preload="none"
+        preload="metadata"
         poster="/dholki-open-cover.webp"
         aria-hidden="true"
       >
