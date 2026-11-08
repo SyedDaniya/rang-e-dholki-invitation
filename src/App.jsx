@@ -37,13 +37,35 @@ function App() {
   const [countdown, setCountdown] = useState(getCountdown)
   const [rsvp, setRsvp] = useState('accept')
   const [whatsappUrl, setWhatsappUrl] = useState('')
-  const [isMusicOn, setIsMusicOn] = useState(false)
+  const [isMusicOn, setIsMusicOn] = useState(true)
+  const [musicUnlocked, setMusicUnlocked] = useState(false)
   const [notice, setNotice] = useState('')
   const [scrollY, setScrollY] = useState(0)
 
   useEffect(() => {
     const timer = window.setInterval(() => setCountdown(getCountdown()), 1000)
     return () => window.clearInterval(timer)
+  }, [])
+
+  useEffect(() => {
+    const unlockMusic = () => {
+      setMusicUnlocked(true)
+      setIsMusicOn(true)
+    }
+
+    const handleFirstInteraction = () => {
+      unlockMusic()
+      window.removeEventListener('pointerdown', handleFirstInteraction)
+      window.removeEventListener('keydown', handleFirstInteraction)
+    }
+
+    window.addEventListener('pointerdown', handleFirstInteraction)
+    window.addEventListener('keydown', handleFirstInteraction)
+
+    return () => {
+      window.removeEventListener('pointerdown', handleFirstInteraction)
+      window.removeEventListener('keydown', handleFirstInteraction)
+    }
   }, [])
 
   useEffect(() => {
@@ -95,7 +117,8 @@ function App() {
 
   const openInvitation = () => {
     if (isOpen || isOpening || isTapping) return
-    setIsMusicOn(false)
+    setIsMusicOn(true)
+    setMusicUnlocked(true)
     setIsTapping(true)
     window.setTimeout(() => setIsOpening(true), 430)
     window.setTimeout(() => {
@@ -108,10 +131,11 @@ function App() {
   const musicPlayer = isMusicOn ? (
     <div className="background-music" aria-label="Dholki background music">
       <video
+        key={musicUnlocked ? 'music-unlocked' : 'music-locked'}
         className="background-music-video"
         autoPlay
         loop
-        muted
+        muted={!musicUnlocked}
         playsInline
         preload="metadata"
         poster="/dholki-open-cover.webp"
