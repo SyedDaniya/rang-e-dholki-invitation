@@ -246,39 +246,6 @@ function App() {
           </div>
         </section>
 
-        <section className="feature-section section-block" id="details">
-          <div className="section-heading-row">
-            <div>
-              <div className="section-eyebrow">Chapter one · 21 November</div>
-              <h2>The evening details</h2>
-            </div>
-            <span className="section-number">01</span>
-          </div>
-          <div className="section-art-line" aria-hidden="true">
-            <img src="/dholki-border-ornament.png" alt="" />
-            <span>Colour · rhythm · family</span>
-            <img src="/dholki-border-ornament.png" alt="" />
-          </div>
-          <div className="feature-grid">
-            <div className="feature-copy">
-              <p className="feature-script">Dholki Night</p>
-              <p>An evening of henna, dholki beats, family songs, and the kind of laughter that stays with you long after the last note.</p>
-              <div className="detail-pairs">
-                <div><span>Date</span><strong>Saturday, 21 November 2026</strong></div>
-                <div><span>Time</span><strong>6:00 PM onwards</strong></div>
-              </div>
-            </div>
-            <div className="venue-card">
-              <div className="venue-map-art" aria-hidden="true"><span className="map-pin">✦</span><span className="map-label">LAHORE</span></div>
-              <div className="venue-copy">
-                <span className="small-label">The gathering place</span>
-                <strong>{venue}</strong>
-                <a href={venueLink} target="_blank" rel="noreferrer">Open in Google Maps <span aria-hidden="true">↗</span></a>
-              </div>
-            </div>
-          </div>
-        </section>
-
         <section className="countdown-section section-block">
           <div className="section-eyebrow">✦ Counting the days ✦</div>
           <h2>Until the first note begins</h2>
@@ -314,6 +281,42 @@ function App() {
                 <div className="timeline-copy"><h3>{item.title}</h3><p>{item.copy}</p></div>
               </div>
             ))}
+          </div>
+        </section>
+
+        <section className="feature-section section-block" id="details">
+          <div className="section-heading-row">
+            <div>
+              <div className="section-eyebrow">Chapter one · 21 November</div>
+              <h2>The evening details</h2>
+            </div>
+            <span className="section-number">01</span>
+          </div>
+          <div className="section-art-line" aria-hidden="true">
+            <img src="/dholki-border-ornament.png" alt="" />
+            <span>Colour · rhythm · family</span>
+            <img src="/dholki-border-ornament.png" alt="" />
+          </div>
+          <div className="feature-grid">
+            <div className="feature-copy">
+              <p className="feature-script">Dholki Night</p>
+              <p>An evening of henna, dholki beats, family songs, and the kind of laughter that stays with you long after the last note.</p>
+              <div className="detail-pairs">
+                <div><span>Date</span><strong>Saturday, 21 November 2026</strong></div>
+                <div><span>Time</span><strong>6:00 PM onwards</strong></div>
+              </div>
+            </div>
+            <div className="venue-card">
+              <div className="venue-map-art">
+                <iframe src={`https://www.google.com/maps?q=${encodeURIComponent(venue)}&output=embed`} title={`Google Map showing ${venue}`} loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
+                <span className="map-label">LIVE MAP · LAHORE</span>
+              </div>
+              <div className="venue-copy">
+                <span className="small-label">The gathering place</span>
+                <strong>{venue}</strong>
+                <a href={venueLink} target="_blank" rel="noreferrer">Open in Google Maps <span aria-hidden="true">↗</span></a>
+              </div>
+            </div>
           </div>
         </section>
 

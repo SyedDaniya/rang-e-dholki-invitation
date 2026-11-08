@@ -140,7 +140,9 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--saffron); outli
 
 .hero { position: relative; z-index: 1; padding: 18px 0 76px; }
 .arch-frame { max-width: 850px; margin: 0 auto; padding: 11px; border: 1px solid rgba(221, 177, 92, 0.52); border-radius: 420px 420px 8px 8px; background: linear-gradient(140deg, rgba(255,215,142,0.08), transparent 36%, rgba(116,28,70,0.18)); }
-.arch-inner { min-height: 710px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 100px 34px 38px; border: 1px solid rgba(221, 177, 92, 0.16); border-radius: 410px 410px 4px 4px; background: radial-gradient(circle at 50% 25%, rgba(117, 25, 65, 0.45), transparent 44%); text-align: center; }
+.arch-inner { position: relative; isolation: isolate; overflow: hidden; min-height: 710px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 100px 34px 38px; border: 1px solid rgba(221, 177, 92, 0.16); border-radius: 410px 410px 4px 4px; background: radial-gradient(circle at 50% 25%, rgba(117, 25, 65, 0.45), transparent 44%); text-align: center; }
+.arch-inner::before { content: ''; position: absolute; inset: 0; z-index: 0; background-image: linear-gradient(180deg, rgba(43, 12, 35, 0.9), rgba(43, 12, 35, 0.62) 52%, rgba(43, 12, 35, 0.94)), url('/dholki-mehndi-stage.png'); background-position: center, center 72%; background-size: cover, cover; filter: saturate(0.78) brightness(0.58) contrast(1.05); opacity: 0.25; transform: scale(1.04); animation: hero-art-drift 20s ease-in-out infinite alternate; pointer-events: none; }
+.arch-inner > * { position: relative; z-index: 1; }
 .arabic-line { margin: 0 0 30px; color: var(--saffron); font-family: 'Noto Naskh Arabic', serif; font-size: 1.45rem; }
 .hero-kicker, .chapter-mark, .section-eyebrow, .small-label { font-family: 'Montserrat', sans-serif; text-transform: uppercase; letter-spacing: 0.2em; }
 .hero-kicker { color: var(--saffron); font-size: 0.62rem; }
@@ -161,7 +163,13 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--saffron); outli
 .scroll-cue { display: inline-flex; gap: 9px; margin-top: 42px; color: var(--cream); font-family: 'Montserrat', sans-serif; font-size: 0.58rem; letter-spacing: 0.15em; text-decoration: none; text-transform: uppercase; }
 .scroll-cue span { color: var(--saffron); font-size: 1rem; }
 
-.section-block { position: relative; z-index: 1; padding: 76px 0; border-top: 1px solid var(--line); text-align: center; opacity: 0; transform: translateY(28px); transition: opacity 800ms ease, transform 800ms cubic-bezier(0.2, 0.8, 0.2, 1); }
+.section-block { position: relative; z-index: 1; overflow: hidden; isolation: isolate; padding: 76px 0; border-top: 1px solid var(--line); text-align: center; opacity: 0; transform: translateY(28px); transition: opacity 800ms ease, transform 800ms cubic-bezier(0.2, 0.8, 0.2, 1); }
+.section-block::before { content: ''; position: absolute; inset: 0; z-index: 0; background-image: linear-gradient(180deg, rgba(21, 11, 21, 0.93), rgba(21, 11, 21, 0.64) 48%, rgba(21, 11, 21, 0.94)), url('/dholki-mehndi-stage.png'); background-position: center, center 42%; background-size: cover, cover; filter: saturate(0.72) brightness(0.62) contrast(1.04); opacity: 0.3; transform: scale(1.04); animation: section-art-drift 18s ease-in-out infinite alternate; pointer-events: none; }
+.section-block > * { position: relative; z-index: 1; }
+.countdown-section::before { background-position: center, center 24%; opacity: 0.23; }
+.timeline-section::before { background-position: center, center 57%; opacity: 0.25; }
+.feature-section::before { background-position: center, center 78%; opacity: 0.2; }
+.rsvp-section::before { background-position: center, center 100%; opacity: 0.22; }
 .section-block.is-visible { opacity: 1; transform: translateY(0); }
 .section-eyebrow { color: var(--saffron); font-size: 0.6rem; }
 .section-block h2 { max-width: 800px; margin: 13px auto 19px; color: var(--cream); font-family: 'Playfair Display', serif; font-size: clamp(2.3rem, 5vw, 4.4rem); font-weight: 500; line-height: 0.98; letter-spacing: -0.065em; }
@@ -184,10 +192,10 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--saffron); outli
 .detail-pairs span { display: block; color: var(--gold); font-family: 'Montserrat', sans-serif; font-size: 0.56rem; letter-spacing: 0.18em; text-transform: uppercase; }
 .detail-pairs strong { display: block; margin-top: 5px; color: var(--cream); font-size: 1.25rem; font-weight: 500; }
 .venue-card { display: grid; grid-template-rows: 1fr auto; min-height: 320px; overflow: hidden; border: 1px solid var(--line); background: rgba(255,255,255,0.035); }
-.venue-map-art { position: relative; display: grid; place-items: center; min-height: 190px; overflow: hidden; background: radial-gradient(circle at 50% 50%, rgba(226, 164, 77, 0.25), transparent 5%), repeating-radial-gradient(ellipse at center, transparent 0 22px, rgba(214, 173, 99, 0.12) 23px 24px), linear-gradient(135deg, #33172b, #7b2b4c); }
-.venue-map-art::after { content: ''; position: absolute; inset: 0; opacity: 0.25; background-image: linear-gradient(36deg, transparent 49%, rgba(255, 244, 210, 0.38) 50%, transparent 51%), linear-gradient(148deg, transparent 49%, rgba(255, 244, 210, 0.26) 50%, transparent 51%); background-size: 62px 62px, 82px 82px; }
-.map-pin { position: relative; z-index: 1; display: grid; place-items: center; width: 54px; height: 54px; border: 1px solid var(--saffron); border-radius: 50%; color: var(--saffron); background: rgba(24, 7, 20, 0.48); }
-.map-label { position: absolute; right: 18px; bottom: 14px; z-index: 1; color: rgba(255,244,231,0.72); font-family: 'Montserrat', sans-serif; font-size: 0.58rem; letter-spacing: 0.22em; }
+.venue-map-art { position: relative; min-height: 190px; overflow: hidden; background: #30202e; }
+.venue-map-art::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(20, 7, 18, 0.02), rgba(20, 7, 18, 0.22)); }
+.venue-map-art iframe { display: block; width: 100%; height: 100%; min-height: 190px; border: 0; filter: saturate(0.86) contrast(1.04) brightness(0.86); }
+.map-label { position: absolute; right: 18px; bottom: 14px; z-index: 1; padding: 7px 9px; border: 1px solid rgba(255, 223, 150, 0.42); color: rgba(255,244,231,0.82); background: rgba(20, 7, 18, 0.68); font-family: 'Montserrat', sans-serif; font-size: 0.55rem; letter-spacing: 0.16em; }
 .venue-copy { padding: 22px; }
 .venue-copy strong { display: block; margin-top: 10px; color: var(--cream); font-size: 1.2rem; font-weight: 500; line-height: 1.25; }
 .venue-copy a { display: inline-block; margin-top: 18px; color: var(--saffron); font-family: 'Montserrat', sans-serif; font-size: 0.6rem; letter-spacing: 0.13em; text-decoration: none; text-transform: uppercase; }
@@ -252,6 +260,8 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--saffron); outli
 @keyframes card-rise { from { opacity: 0; transform: translateY(24px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
 @keyframes invitation-in { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes glow-drift { from { transform: translateX(-16px) scale(0.9); } to { transform: translateX(16px) scale(1.12); } }
+@keyframes hero-art-drift { from { transform: scale(1.04) translate3d(-0.7%, -0.5%, 0); } to { transform: scale(1.08) translate3d(0.7%, 0.5%, 0); } }
+@keyframes section-art-drift { from { transform: scale(1.04) translate3d(-1%, -1%, 0); } to { transform: scale(1.09) translate3d(1%, 1%, 0); } }
 @keyframes dholak-ring-pulse { 0%, 100% { opacity: 0.24; transform: scale(0.94); } 44% { opacity: 0.62; transform: scale(1); } 58% { opacity: 0.9; transform: scale(0.98); } }
 @keyframes music-button-pulse { 0% { opacity: 0.65; transform: scale(0.88); } 70%, 100% { opacity: 0; transform: scale(1.28); } }
 @keyframes dholak-click-hit { 0% { transform: translateX(-50%) rotate(0) scale(1); } 25% { transform: translateX(-50%) rotate(-4deg) scale(1.04); } 48% { transform: translateX(-50%) rotate(4deg) scale(0.98); } 70% { transform: translateX(-50%) rotate(-2deg) scale(1.02); } 100% { transform: translateX(-50%) rotate(0) scale(1); } }
