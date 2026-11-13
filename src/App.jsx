@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import './App.css'
 
 const eventDate = new Date('2026-11-21T18:00:00+05:00')
@@ -37,8 +37,8 @@ function App() {
   const [countdown, setCountdown] = useState(getCountdown)
   const [rsvp, setRsvp] = useState('accept')
   const [whatsappUrl, setWhatsappUrl] = useState('')
-  const [isMusicOn, setIsMusicOn] = useState(true)
-  const [musicUnlocked, setMusicUnlocked] = useState(false)
+  const [isMusicOn, setIsMusicOn] = useState(false)
+  const musicRef = useRef(null)
   const [notice, setNotice] = useState('')
   const [scrollY, setScrollY] = useState(0)
 
@@ -48,13 +48,8 @@ function App() {
   }, [])
 
   useEffect(() => {
-    const unlockMusic = () => {
-      setMusicUnlocked(true)
-      setIsMusicOn(true)
-    }
-
     const handleFirstInteraction = () => {
-      unlockMusic()
+      playMusic()
       window.removeEventListener('pointerdown', handleFirstInteraction)
       window.removeEventListener('keydown', handleFirstInteraction)
     }
@@ -115,10 +110,30 @@ function App() {
     return `Hello ${organizer}, ${message}`
   }, [rsvp])
 
+  function playMusic() {
+    const player = musicRef.current
+    if (!player) return
+
+    player.volume = 1
+    player.play().then(() => setIsMusicOn(true)).catch(() => setIsMusicOn(false))
+  }
+
+  function toggleMusic() {
+    const player = musicRef.current
+    if (!player) return
+
+    if (isMusicOn) {
+      player.pause()
+      setIsMusicOn(false)
+      return
+    }
+
+    playMusic()
+  }
+
   const openInvitation = () => {
     if (isOpen || isOpening || isTapping) return
-    setIsMusicOn(true)
-    setMusicUnlocked(true)
+    playMusic()
     setIsTapping(true)
     window.setTimeout(() => setIsOpening(true), 430)
     window.setTimeout(() => {
@@ -128,29 +143,30 @@ function App() {
     }, 1480)
   }
 
-  const musicPlayer = isMusicOn ? (
+  const musicPlayer = (
     <div className="background-music" aria-label="Dholki background music">
       <video
-        key={musicUnlocked ? 'music-unlocked' : 'music-locked'}
+        ref={musicRef}
         className="background-music-video"
         autoPlay
         loop
-        muted={!musicUnlocked}
         playsInline
-        preload="metadata"
+        preload="auto"
         poster="/dholki-open-cover.webp"
+        onPlay={() => setIsMusicOn(true)}
+        onPause={() => setIsMusicOn(false)}
         aria-hidden="true"
       >
         <source src="/dholki-music.mp4" type="video/mp4" />
       </video>
     </div>
-  ) : null
+  )
 
   const musicToggleButton = (
     <button
       className={`floating-music-toggle ${isMusicOn ? 'is-active' : ''}`}
       type="button"
-      onClick={() => setIsMusicOn((value) => !value)}
+      onClick={toggleMusic}
       aria-pressed={isMusicOn}
       aria-label={isMusicOn ? 'Pause Dholki music' : 'Play Dholki music'}
       title={isMusicOn ? 'Pause Dholki music' : 'Play Dholki music'}
