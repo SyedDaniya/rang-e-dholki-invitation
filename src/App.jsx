@@ -2,8 +2,6 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import './App.css'
 
 const eventDate = new Date('2026-11-21T18:00:00+05:00')
-const venue = 'House No. 35, Ghosia Colony, College Road, Johar Town, Lahore'
-const venueLink = 'https://www.google.com/maps/search/?api=1&query=House%20No.%2035%2C%20Ghosia%20Colony%2C%20College%20Road%2C%20Johar%20Town%2C%20Lahore'
 const whatsappNumber = '923214051843'
 const organizer = 'Syed Asad Bukhari'
 
@@ -48,18 +46,58 @@ function App() {
   }, [])
 
   useEffect(() => {
-    const handleFirstInteraction = () => {
-      playMusic()
-      window.removeEventListener('pointerdown', handleFirstInteraction)
-      window.removeEventListener('keydown', handleFirstInteraction)
+    let unmounted = false
+    const events = ['pointerdown', 'touchstart', 'click', 'keydown', 'scroll', 'wheel']
+
+    const removeListeners = () => {
+      events.forEach((evt) => window.removeEventListener(evt, handleFirstInteraction))
     }
 
-    window.addEventListener('pointerdown', handleFirstInteraction)
-    window.addEventListener('keydown', handleFirstInteraction)
+    const handleFirstInteraction = () => {
+      removeListeners()
+      if (!unmounted && musicRef.current) {
+        musicRef.current.volume = 1
+        musicRef.current.muted = false
+        musicRef.current.play().then(() => {
+          if (!unmounted) setIsMusicOn(true)
+        }).catch(() => {})
+      }
+    }
+
+    events.forEach((evt) => window.addEventListener(evt, handleFirstInteraction, { passive: true }))
+
+    const attemptAutoplay = () => {
+      if (!musicRef.current || unmounted) return
+      musicRef.current.volume = 1
+      musicRef.current.muted = false
+      musicRef.current.play()
+        .then(() => {
+          if (!unmounted) {
+            setIsMusicOn(true)
+            removeListeners()
+          }
+        })
+        .catch(() => {
+          // Autoplay was blocked by browser policy; interaction listeners remain active
+          if (!unmounted) setIsMusicOn(false)
+        })
+    }
+
+    const player = musicRef.current
+    if (player) {
+      if (player.readyState >= 2) {
+        attemptAutoplay()
+      } else {
+        player.addEventListener('canplay', attemptAutoplay, { once: true })
+      }
+    }
 
     return () => {
-      window.removeEventListener('pointerdown', handleFirstInteraction)
-      window.removeEventListener('keydown', handleFirstInteraction)
+      unmounted = true
+      removeListeners()
+      if (player) {
+        player.removeEventListener('canplay', attemptAutoplay)
+      }
     }
   }, [])
 
@@ -115,6 +153,7 @@ function App() {
     if (!player) return
 
     player.volume = 1
+    player.muted = false
     player.play().then(() => setIsMusicOn(true)).catch(() => setIsMusicOn(false))
   }
 
@@ -219,7 +258,7 @@ function App() {
             <div className="cover-reference-overlay" aria-hidden="true" />
             <div className="cover-title-overlay">
               <span>Rang-e-Dholki</span>
-              <small>21 November 2026 · Lahore</small>
+              <small>21 November 2026</small>
             </div>
             <button className="dholak-open-button" type="button" onClick={openInvitation} aria-label="Tap the dholak to open the Rang-e-Dholki invitation">
               <img className="dholak-tap-hand hand-right" src="/dholki-tap-hand.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
@@ -289,7 +328,6 @@ function App() {
                 <span className="meta-dot">•</span>
                 <span>6:00 PM onwards</span>
               </div>
-              <p className="hero-location">Johar Town · Lahore</p>
               <a className="scroll-cue" href="#details">Scroll to enter the mehfil <span aria-hidden="true">↓</span></a>
             </div>
           </div>
@@ -353,17 +391,6 @@ function App() {
               <div className="detail-pairs">
                 <div><span>Date</span><strong>Saturday, 21 November 2026</strong></div>
                 <div><span>Time</span><strong>6:00 PM onwards</strong></div>
-              </div>
-            </div>
-            <div className="venue-card">
-              <div className="venue-map-art">
-                <iframe src={`https://www.google.com/maps?q=${encodeURIComponent(venue)}&output=embed`} title={`Google Map showing ${venue}`} loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
-                <span className="map-label">LIVE MAP · LAHORE</span>
-              </div>
-              <div className="venue-copy">
-                <span className="small-label">The gathering place</span>
-                <strong>{venue}</strong>
-                <a href={venueLink} target="_blank" rel="noreferrer">Open in Google Maps <span aria-hidden="true">↗</span></a>
               </div>
             </div>
           </div>
