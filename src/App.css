@@ -193,6 +193,9 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--saffron); outli
 .detail-pairs { display: flex; justify-content: center; gap: 48px; margin-top: 34px; padding-top: 22px; border-top: 1px solid var(--line); }
 .detail-pairs span { display: block; color: var(--gold); font-family: 'Montserrat', sans-serif; font-size: 0.56rem; letter-spacing: 0.18em; text-transform: uppercase; }
 .detail-pairs strong { display: block; margin-top: 5px; color: var(--cream); font-size: 1.25rem; font-weight: 500; }
+.card-download-row { margin-top: 26px; }
+.card-download-btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 22px; border: 1px solid var(--saffron); border-radius: 999px; cursor: pointer; color: var(--ink); background: linear-gradient(135deg, #ffd889, #eea64c); font-family: 'Montserrat', sans-serif; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.12em; text-decoration: none; text-transform: uppercase; transition: transform 180ms ease, filter 180ms ease; }
+.card-download-btn:hover { transform: translateY(-2px); filter: brightness(1.08); }
 
 .countdown-grid { display: grid; grid-template-columns: repeat(4, 1fr); max-width: 780px; margin: 32px auto 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .countdown-box { min-height: 140px; display: flex; flex-direction: column; align-items: center; justify-content: center; border-right: 1px solid var(--line); }

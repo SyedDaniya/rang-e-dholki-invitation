@@ -223,7 +223,7 @@ function App() {
   const shareInvitation = async () => {
     const shareData = {
       title: 'Dholki Night',
-      text: 'You are warmly invited to an evening of music, light, and celebration.',
+      text: 'You are warmly invited to celebrate Dholki Night with Syed Zain-ul-Abideen & Syeda Esha Javed. Saturday, 21 November 2026.',
       url: window.location.href,
     }
 
@@ -300,6 +300,10 @@ function App() {
       <div className="invitation" id="top">
         <div className="grain" aria-hidden="true" />
         <div className="floating-controls" aria-label="Invitation controls">
+          <a className="control-pill" href="/dholki-card.jpg" download="Dholki-Night-Invitation.jpg" title="Download invitation card image">
+            <span className="control-icon" aria-hidden="true">↓</span>
+            <span>Save Card</span>
+          </a>
           <button className="control-pill" type="button" onClick={shareInvitation}>
             <span className="control-icon" aria-hidden="true">↗</span>
             <span>Share</span>
@@ -367,6 +371,11 @@ function App() {
               <div className="detail-pairs">
                 <div><span>Date</span><strong>Saturday, 21 November 2026</strong></div>
                 <div><span>Time</span><strong>6:00 PM onwards</strong></div>
+              </div>
+              <div className="card-download-row">
+                <a className="card-download-btn" href="/dholki-card.jpg" download="Dholki-Night-Invitation.jpg">
+                  <span aria-hidden="true">↓</span> Save Card (JPEG)
+                </a>
               </div>
             </div>
           </div>
