@@ -5,12 +5,6 @@ const eventDate = new Date('2026-11-21T18:00:00+05:00')
 const whatsappNumber = '923214051843'
 const organizer = 'Syed Asad Bukhari'
 
-const schedule = [
-  { time: '06:00 PM', title: 'Welcome', copy: 'Arrive, settle in, and let the evening begin with warm welcomes.' },
-  { time: '07:00 PM', title: 'Dholki begins', copy: 'The first beats, family songs, and the circle of celebration.' },
-  { time: '08:30 PM', title: 'Dholki songs', copy: 'Family songs, claps in rhythm, and a mehfil lit by golden lamps.' },
-  { time: '10:30 PM', title: 'Dinner & duas', copy: 'A shared table, heartfelt prayers, and memories to carry home.' },
-]
 
 function getCountdown() {
   const remaining = eventDate.getTime() - Date.now()
@@ -352,24 +346,6 @@ function App() {
           </div>
         </section>
 
-        <section className="timeline-section section-block">
-          <div className="section-eyebrow">✦ The order of the evening ✦</div>
-          <h2>A little glimpse of what awaits</h2>
-          <div className="section-art-line timeline-art-line" aria-hidden="true">
-            <img src="/dholki-border-ornament.webp" alt="" loading="lazy" decoding="async" />
-            <span>Beats · songs · laughter</span>
-            <img src="/dholki-border-ornament.webp" alt="" loading="lazy" decoding="async" />
-          </div>
-          <div className="timeline">
-            {schedule.map((item, index) => (
-              <div className="timeline-item" key={item.time}>
-                <div className="timeline-time">{item.time}</div>
-                <div className="timeline-marker"><span>{String(index + 1).padStart(2, '0')}</span></div>
-                <div className="timeline-copy"><h3>{item.title}</h3><p>{item.copy}</p></div>
-              </div>
-            ))}
-          </div>
-        </section>
 
         <section className="feature-section section-block" id="details">
           <div className="section-heading-row">
