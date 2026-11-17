@@ -137,8 +137,8 @@ function App() {
 
   const rsvpMessage = useMemo(() => {
     const message = rsvp === 'accept'
-      ? 'Assalamualaikum! I am delighted to attend Rang-e-Dholki and would love to celebrate this joyful evening with you.'
-      : 'Assalamualaikum! With warm wishes, I am unable to attend Rang-e-Dholki but send my blessings and best wishes for the celebration.'
+      ? 'Assalamualaikum! I am delighted to attend Dholki Night and would love to celebrate this joyful evening with you.'
+      : 'Assalamualaikum! With warm wishes, I am unable to attend Dholki Night but send my blessings and best wishes for the celebration.'
     return `Hello ${organizer}, ${message}`
   }, [rsvp])
 
@@ -216,13 +216,13 @@ function App() {
   const openRsvp = (choice) => {
     setRsvp(choice)
     setWhatsappUrl(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(choice === 'accept'
-      ? `Hello ${organizer}, I am delighted to attend Rang-e-Dholki and would love to celebrate this joyful evening with you.`
-      : `Hello ${organizer}, with warm wishes, I am unable to attend Rang-e-Dholki but send my blessings and best wishes for the celebration.`)}`)
+      ? `Hello ${organizer}, I am delighted to attend Dholki Night and would love to celebrate this joyful evening with you.`
+      : `Hello ${organizer}, with warm wishes, I am unable to attend Dholki Night but send my blessings and best wishes for the celebration.`)}`)
   }
 
   const shareInvitation = async () => {
     const shareData = {
-      title: 'Rang-e-Dholki | Dholki Night',
+      title: 'Dholki Night',
       text: 'You are warmly invited to an evening of music, light, and celebration.',
       url: window.location.href,
     }
@@ -247,14 +247,14 @@ function App() {
         <main className={`envelope-screen ${isOpening ? 'is-opening' : ''}`}>
           {musicToggleButton}
           <div className="envelope-glow" aria-hidden="true" />
-          <section className={`envelope-card ${isTapping ? 'is-tapping' : ''} ${isOpening ? 'is-opening' : ''}`} aria-label="Rang-e-Dholki invitation cover">
+          <section className={`envelope-card ${isTapping ? 'is-tapping' : ''} ${isOpening ? 'is-opening' : ''}`} aria-label="Dholki Night invitation cover">
             <img className="cover-reference-art" src="/dholki-open-cover.webp" alt="Illustrated Dholki Night stage with a glowing decorated dholak, lanterns, and a celebrating couple" loading="lazy" decoding="async" />
             <div className="cover-reference-overlay" aria-hidden="true" />
             <div className="cover-title-overlay">
-              <span>Rang-e-Dholki</span>
+              <span>Dholki Night</span>
               <small>21 November 2026</small>
             </div>
-            <button className="dholak-open-button" type="button" onClick={openInvitation} aria-label="Tap the dholak to open the Rang-e-Dholki invitation">
+            <button className="dholak-open-button" type="button" onClick={openInvitation} aria-label="Tap the dholak to open the Dholki Night invitation">
               <img className="dholak-tap-hand hand-right" src="/dholki-tap-hand.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
               <span className="dholak-button-label">Tap the dholak</span>
             </button>
@@ -265,14 +265,14 @@ function App() {
             <div className="seal-circle"><span>م</span></div>
             <div className="invited-copy">
               <p>You are warmly invited to</p>
-              <strong>Rang-e-Dholki</strong>
+              <strong>Dholki Night</strong>
               <span>Dholki night · 21 November 2026</span>
             </div>
           </section>
           {isOpening && (
             <div className="opening-transition" aria-live="polite">
               <span className="opening-spark" aria-hidden="true">✦</span>
-              <p>Rang-e-Dholki</p>
+              <p>Dholki Night</p>
               <span>21 · 11 · 2026</span>
             </div>
           )}
@@ -312,11 +312,11 @@ function App() {
               <p className="arabic-line" dir="rtl">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
               <div className="hero-kicker"><span>✦</span> A DHOLKI NIGHT INVITATION <span>✦</span></div>
               <p className="chapter-mark">CHAPTER ONE · THE MEHFIL</p>
-              <h1 id="invitation-title">Rang-e-Dholki</h1>
+              <h1 id="invitation-title">Dholki Night</h1>
               <p className="hero-subtitle">An evening of raag, rhythm & togetherness</p>
               <div className="hero-divider"><span>◆</span></div>
               <p className="invited-line">With joy in our hearts, we invite you to celebrate</p>
-              <p className="couple-name">Syed Zain-ul-Abideen <em>&</em> Syeda Esha Javeed</p>
+              <p className="couple-name">Syed Zain-ul-Abideen <em>&</em> Syeda Esha Javed</p>
               <div className="hero-meta">
                 <span>21 · 11 · 2026</span>
                 <span className="meta-dot">•</span>
@@ -331,7 +331,7 @@ function App() {
           <div className="section-eyebrow">✦ Counting the days ✦</div>
           <h2>Until the first note begins</h2>
           <div className="countdown-art" aria-hidden="true"><img src="/dholki-open-cover.webp" alt="" loading="lazy" decoding="async" /></div>
-          <div className="countdown-grid" aria-label="Countdown to Rang-e-Dholki">
+          <div className="countdown-grid" aria-label="Countdown to Dholki Night">
             {[
               ['days', countdown.days],
               ['hours', countdown.hours],
@@ -390,7 +390,7 @@ function App() {
           <div className="footer-monogram">م</div>
           <div className="ornament-row" aria-hidden="true"><span />✦<span /></div>
           <p>With love, prayers & deepest gratitude</p>
-          <strong>Syed Zain-ul-Abideen & Syeda Esha Javeed</strong>
+          <strong>Syed Zain-ul-Abideen & Syeda Esha Javed</strong>
           <div className="footer-credit-grid" aria-label="Dholki hosts and welcome">
             <div className="footer-credit">
               <span className="footer-credit-label">Dholki organized by</span>
@@ -422,3 +422,6 @@ function App() {
 }
 
 export default App
+
+
+
